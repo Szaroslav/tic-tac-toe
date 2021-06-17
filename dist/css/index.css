@@ -1,1 +1,45 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #1b171d;
+  color: white;
+}
+
+.tic-tac-toe {
+  margin: 0 auto;
+  position: relative;
+}
+
+.tic-tac-toe__heading {
+  font: 900 3rem 'Nunito Sans', sans-serif;
+  text-align: center;
+}
+
+.tic-tac-toe__board {
+  display: grid;
+  width: 90vw;
+  height: 90vw;
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0 auto;
+  grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+  gap: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tic-tac-toe__board .tic-tac-toe__cell {
+  background-color: #171319;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tic-tac-toe__o, .tic-tac-toe__x {
+  display: inline-block;
+}
+/*# sourceMappingURL=index.css.map */
