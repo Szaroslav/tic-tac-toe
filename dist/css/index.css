@@ -1,13 +1,24 @@
+@use 'sass:math';
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   margin: 0;
   background-color: #1b171d;
   color: white;
+  font-family: 'Raleway', sans-serif;
+}
+
+input[type='submit'],
+input[type='button'],
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .tic-tac-toe {
@@ -16,7 +27,8 @@ body {
 }
 
 .tic-tac-toe__heading {
-  font: 900 3rem 'Nunito Sans', sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
   text-align: center;
 }
 
@@ -24,11 +36,12 @@ body {
   display: grid;
   width: 90vw;
   height: 90vw;
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 410px;
+  max-height: 410px;
   margin: 0 auto;
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
   gap: 10px;
+  position: relative;
 }
 
 .tic-tac-toe__board .tic-tac-toe__cell {
@@ -50,13 +63,89 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  transform: scale(1);
+  transition: background-image 0.5s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tic-tac-toe__mark.animated {
+  transform: scale(0);
 }
 
 .tic-tac-toe__mark.x {
-  background-image: url("../../assets/x.svg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.53 196.53'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%232edbf1;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 3%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='cls-1' points='196.53 23.49 173.04 0 98.26 74.77 23.49 0 0 23.49 74.77 98.27 0 173.04 23.49 196.53 98.26 121.76 173.04 196.53 196.53 173.04 121.76 98.27 196.53 23.49' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.tic-tac-toe__mark.x.test {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.53 196.53'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23ffffff30;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 3%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='cls-1' points='196.53 23.49 173.04 0 98.26 74.77 23.49 0 0 23.49 74.77 98.27 0 173.04 23.49 196.53 98.26 121.76 173.04 196.53 196.53 173.04 121.76 98.27 196.53 23.49' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .tic-tac-toe__mark.o {
-  background-image: url("../../assets/o.svg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.57 196.57'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23e72242;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 4%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpath class='cls-1' d='M98.29,33.22A65.06,65.06,0,1,1,33.22,98.29,65.14,65.14,0,0,1,98.29,33.22M98.29,0a98.29,98.29,0,1,0,98.29,98.29A98.29,98.29,0,0,0,98.29,0Z' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.tic-tac-toe__mark.o.test {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.57 196.57'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23ffffff30;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 4%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpath class='cls-1' d='M98.29,33.22A65.06,65.06,0,1,1,33.22,98.29,65.14,65.14,0,0,1,98.29,33.22M98.29,0a98.29,98.29,0,1,0,98.29,98.29A98.29,98.29,0,0,0,98.29,0Z' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.tic-tac-toe__game-over {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.tic-tac-toe__game-over.active {
+  visibility: visible;
+}
+
+.tic-tac-toe__game-over.active::before {
+  opacity: 1;
+}
+
+.tic-tac-toe__game-over.active > * {
+  opacity: 1;
+}
+
+.tic-tac-toe__game-over::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #1b171d;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tic-tac-toe__game-over > * {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tic-tac-toe__game-over .game-over__heading {
+  font-size: 2.5rem;
+  transition-delay: 0.3s;
+}
+
+.tic-tac-toe__game-over .game-over__button {
+  padding: 16px 48px;
+  font: 700 1rem 'Raleway', sans-serif;
+  background-color: #2edbf1;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease 0.6s, background-color 0.3s ease;
+}
+
+.tic-tac-toe__game-over .game-over__button:hover {
+  background-color: #e72242;
 }
 /*# sourceMappingURL=index.css.map */

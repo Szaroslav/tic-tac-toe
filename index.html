@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@900&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800;900&display=swap" />
         <link rel="stylesheet" href="./dist/css/index.css" />
         <title>Tic Tac Toe</title>
     </head>
@@ -22,7 +23,11 @@
                 <div class="tic-tac-toe__cell" data-index="6"></div>
                 <div class="tic-tac-toe__cell" data-index="7"></div>
                 <div class="tic-tac-toe__cell" data-index="8"></div>
-                <div class="tic-tac-toe__win-line diagonal"></div>
+            </div>
+            <div class="tic-tac-toe__game-over">
+                <h2 class="game-over__heading">Player <span class="game-over__player">X</span> has won</h2>
+                <p class="game-over__player">X</p>
+                <button class="game-over__button">PLAY AGAIN</button>
             </div>
         </main>
 
