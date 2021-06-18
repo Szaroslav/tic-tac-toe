@@ -29,14 +29,17 @@ body {
   margin: 0 auto;
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
   gap: 10px;
-  border-radius: 16px;
-  overflow: hidden;
 }
 
 .tic-tac-toe__board .tic-tac-toe__cell {
   background-color: #171319;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tic-tac-toe__board .tic-tac-toe__cell:hover {
+  background-color: #241f27;
 }
 
 .tic-tac-toe__mark {
@@ -44,7 +47,9 @@ body {
   width: 60%;
   height: 60%;
   margin: 20%;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .tic-tac-toe__mark.x {
