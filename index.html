@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800;900&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" />
         <link rel="stylesheet" href="./dist/css/index.css" />
         <script src="./js/anime.min.js"></script>
@@ -101,14 +101,16 @@
                 </div>
             </div>
             <div class="tic-tac-toe__game-over">
-                <h2 class="game-over__heading">Player <span class="game-over__player">X</span> has won</h2>
-                <svg class="tic-tac-toe__mark x hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.99 71.99">
-                    <line class="mark-svg" x1="4.24" y1="4.24" x2="67.74" y2="67.74" />
-                    <line class="mark-svg" x1="4.24" y1="67.74" x2="67.74" y2="4.24" />
-                </svg>
-                <svg class="tic-tac-toe__mark o hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 77">
-                    <circle class="mark-svg" cx="38.5" cy="38.5" r="32.5" />
-                </svg>
+                <h2 class="game-over__heading"><span class="game-over__player">Player X</span> has won</h2>
+                <div class="game-over__marks">
+                    <svg class="tic-tac-toe__mark x hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.99 71.99">
+                        <line class="mark-svg" x1="4.24" y1="4.24" x2="67.74" y2="67.74" />
+                        <line class="mark-svg" x1="4.24" y1="67.74" x2="67.74" y2="4.24" />
+                    </svg>
+                    <svg class="tic-tac-toe__mark o hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 77">
+                        <circle class="mark-svg" cx="38.5" cy="38.5" r="32.5" />
+                    </svg>
+                </div>
                 <button class="game-over__button">PLAY AGAIN</button>
             </div>
         </main>

@@ -1,7 +1,9 @@
 let playersTurn = 'x';
 let turn = 1;
 let gameOver = false;
+let pause = true;
 let game = ['', '', '', '', '', '', '', '', ''];
+
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -16,6 +18,7 @@ const winConditions = [
 const board = document.querySelector('.tic-tac-toe__board');
 const gameOverContainer = document.querySelector('.tic-tac-toe__game-over');
 const playAgainButton = document.querySelector('.game-over__button');
+const header = document.querySelector('.tic-tac-toe__header');
 
 const resetGame = () => {
     playersTurn = 'x';
@@ -64,18 +67,44 @@ const handleGameOver = (a = -1, b = -1, c = -1) => {
     gameOverContainer.querySelectorAll('.tic-tac-toe__mark').forEach(mark => mark.classList.add('hidden'));
     if (a >= 0) {
         gameOverContainer.querySelector('.game-over__heading').innerHTML = `
-            Player <span class="game-over__player">${playersTurn.toUpperCase()}</span> has won
+            <span class="game-over__player">Player ${playersTurn.toUpperCase()}</span> has won
         `;
         gameOverContainer.querySelector(`.${playersTurn}`).classList.remove('hidden');
     } else {
         gameOverContainer.querySelector('.game-over__heading').innerHTML = 'Draw';
+        gameOverContainer.querySelectorAll('.tic-tac-toe__mark').forEach(mark => mark.classList.remove('hidden'));
     }
 
-    setTimeout(() => gameOverContainer.classList.add('active'), 2000);
+    setTimeout(() => gameOverContainer.classList.add('active'), 1500);
+};
+
+const animate = () => {
+    const indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8].sort(() => Math.random() - 0.5);
+    const cells = document.querySelectorAll('.tic-tac-toe__cell');
+
+    anime({
+        targets: '.tic-tac-toe__header',
+        duration: 400,
+        delay: 300,
+        translateY: [100, 0],
+        scale: [0, 1],
+        easing: 'easeOutCubic',
+    });
+
+    indexes.forEach((index, i) =>
+        anime({
+            targets: cells[index],
+            duration: 300,
+            delay: 700 + 125 * i,
+            opacity: [0, 1],
+            easing: 'easeOutCubic',
+            complete: () => (pause = i !== 8),
+        })
+    );
 };
 
 board.addEventListener('click', e => {
-    if (gameOver) return;
+    if (gameOver || pause) return;
 
     const t = e.target;
 
@@ -113,3 +142,5 @@ board.addEventListener('click', e => {
 });
 
 playAgainButton.addEventListener('click', () => resetGame());
+
+animate();

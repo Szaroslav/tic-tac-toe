@@ -1,13 +1,3 @@
-@use 'sass:math';
-
-@mixin svg-x($color) {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.53 196.53'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23#{$color};%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 3%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='cls-1' points='196.53 23.49 173.04 0 98.26 74.77 23.49 0 0 23.49 74.77 98.27 0 173.04 23.49 196.53 98.26 121.76 173.04 196.53 196.53 173.04 121.76 98.27 196.53 23.49' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-@mixin svg-o($color) {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196.57 196.57'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23#{$color};%7D%3C/style%3E%3C/defs%3E%3Ctitle%3EAsset 4%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpath class='cls-1' d='M98.29,33.22A65.06,65.06,0,1,1,33.22,98.29,65.14,65.14,0,0,1,98.29,33.22M98.29,0a98.29,98.29,0,1,0,98.29,98.29A98.29,98.29,0,0,0,98.29,0Z' shape-rendering='geometricPrecision'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
 *,
 *::before,
 *::after {
@@ -135,11 +125,13 @@ button {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        text-align: center;
         position: fixed;
         top: 0;
         left: 0;
         z-index: 1;
         visibility: hidden;
+        transition: visibility 0.3s ease;
 
         &.active {
             visibility: visible;
@@ -148,8 +140,22 @@ button {
                 opacity: 1;
             }
 
-            & > * {
+            .tic-tac-toe__mark,
+            .game-over__heading,
+            .game-over__button {
                 opacity: 1;
+            }
+
+            .game-over__heading {
+                transition-delay: 0.3s;
+            }
+
+            .tic-tac-toe__mark {
+                transition-delay: 0.6s;
+            }
+
+            .game-over__button {
+                transition: opacity 0.3s ease 0.9s, background-color 0.3s ease;
             }
         }
 
@@ -165,13 +171,19 @@ button {
             transition: opacity 0.3s ease;
         }
 
-        & > * {
+        .tic-tac-toe__mark,
+        .game-over__heading,
+        .game-over__button {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
+        .game-over__marks {
+            display: flex;
+        }
+
         .tic-tac-toe__mark {
-            width: 128px;
+            width: 82px;
             height: auto;
             margin: 0;
         }
@@ -180,7 +192,7 @@ button {
             margin: 0;
             margin-bottom: 3rem;
             font-size: 2.5rem;
-            transition-delay: 0.3s;
+            font-weight: 600;
 
             .game-over__player {
                 font-weight: 800;
@@ -195,7 +207,7 @@ button {
             color: white;
             border-radius: 100px;
             box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
-            transition: opacity 0.3s ease 0.6s, background-color 0.3s ease;
+            transition: background-color 0.3s ease;
 
             &:hover {
                 background-color: #e72242;
