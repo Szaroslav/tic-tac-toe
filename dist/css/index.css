@@ -112,7 +112,7 @@ button {
   transform: scale(0);
 }
 
-.tic-tac-toe__mark.test .mark-svg {
+.tic-tac-toe__mark.no-win .mark-svg {
   stroke: #252127;
 }
 

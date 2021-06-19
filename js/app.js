@@ -45,8 +45,7 @@ const handleGameOver = (a, b, c) => {
         .filter((cell, i) => i !== a && i !== b && i !== c)
         .forEach(cell => {
             const mark = cell.querySelector('.tic-tac-toe__mark');
-            console.log(mark);
-            if (mark) mark.classList.add('test');
+            if (mark) mark.classList.add('no-win');
         });
 
     setTimeout(() => gameOverContainer.classList.add('active'), 2500);
@@ -61,10 +60,10 @@ board.addEventListener('click', e => {
         //createMark(t, playersTurn);
         t.classList.add('filled');
 
-        const k = t.querySelector(`.${playersTurn}`);
-        k.classList.remove('hidden');
-        k.classList.add('animated');
-        setTimeout(() => k.classList.remove('animated'), 10);
+        const m = t.querySelector(`.${playersTurn}`);
+        m.classList.remove('hidden');
+        m.classList.add('animated');
+        setTimeout(() => m.classList.remove('animated'), 10);
 
         game[Number.parseInt(t.getAttribute('data-index'))] = playersTurn;
         playersTurn = playersTurn === 'x' ? 'o' : 'x';
