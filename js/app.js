@@ -49,7 +49,7 @@ const handleGameOver = (a, b, c) => {
             if (mark) mark.classList.add('test');
         });
 
-    setTimeout(() => gameOverContainer.classList.add('active'), 3000);
+    setTimeout(() => gameOverContainer.classList.add('active'), 2500);
 };
 
 board.addEventListener('click', e => {
@@ -58,8 +58,13 @@ board.addEventListener('click', e => {
     const t = e.target;
 
     if (t.classList.contains('tic-tac-toe__cell') && !t.classList.contains('filled')) {
-        createMark(t, playersTurn);
+        //createMark(t, playersTurn);
         t.classList.add('filled');
+
+        const k = t.querySelector(`.${playersTurn}`);
+        k.classList.remove('hidden');
+        k.classList.add('animated');
+        setTimeout(() => k.classList.remove('animated'), 10);
 
         game[Number.parseInt(t.getAttribute('data-index'))] = playersTurn;
         playersTurn = playersTurn === 'x' ? 'o' : 'x';
