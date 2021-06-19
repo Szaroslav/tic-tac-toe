@@ -1,6 +1,7 @@
 let playersTurn = 'x';
+let turn = 1;
 let gameOver = false;
-const game = ['', '', '', '', '', '', '', '', ''];
+let game = ['', '', '', '', '', '', '', '', ''];
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,12 +15,24 @@ const winConditions = [
 
 const board = document.querySelector('.tic-tac-toe__board');
 const gameOverContainer = document.querySelector('.tic-tac-toe__game-over');
+const playAgainButton = document.querySelector('.game-over__button');
 
-const createMark = (target, mark) => {
-    const m = document.createElement('span');
-    m.setAttribute('class', `tic-tac-toe__mark ${mark} animated`);
-    const ma = target.appendChild(m);
-    setTimeout(() => ma.classList.remove('animated'), 50);
+const resetGame = () => {
+    playersTurn = 'x';
+    turn = 1;
+    gameOver = false;
+    game = ['', '', '', '', '', '', '', '', ''];
+
+    board.classList.remove('game-over');
+    board.querySelectorAll('.tic-tac-toe__cell').forEach(cell => {
+        cell.classList.remove('filled');
+        cell.querySelectorAll('.tic-tac-toe__mark').forEach(mark => {
+            mark.classList.add('hidden');
+            mark.classList.remove('no-win');
+        });
+    });
+
+    gameOverContainer.classList.remove('active');
 };
 
 const isGameOver = callback => {
@@ -35,18 +48,21 @@ const isGameOver = callback => {
         }
     }
 
+    if (turn === 9) callback();
+
     return false;
 };
 
-const handleGameOver = (a, b, c) => {
+const handleGameOver = (a = -1, b = -1, c = -1) => {
     gameOver = true;
+    board.classList.add('game-over');
 
     Array.from(board.querySelectorAll('.tic-tac-toe__cell'))
         .filter((cell, i) => i !== a && i !== b && i !== c)
-        .forEach(cell => {
-            const mark = cell.querySelector('.tic-tac-toe__mark');
-            if (mark) mark.classList.add('no-win');
-        });
+        .forEach(cell => cell.querySelectorAll('.tic-tac-toe__mark').forEach(mark => mark.classList.add('no-win')));
+
+    gameOverContainer.querySelector('.game-over__player').textContent = playersTurn.toUpperCase();
+    gameOverContainer.querySelector(`.${playersTurn}`).classList.remove('hidden');
 
     setTimeout(() => gameOverContainer.classList.add('active'), 2500);
 };
@@ -57,7 +73,6 @@ board.addEventListener('click', e => {
     const t = e.target;
 
     if (t.classList.contains('tic-tac-toe__cell') && !t.classList.contains('filled')) {
-        //createMark(t, playersTurn);
         t.classList.add('filled');
 
         const m = t.querySelector(`.${playersTurn}`);
@@ -66,8 +81,12 @@ board.addEventListener('click', e => {
         setTimeout(() => m.classList.remove('animated'), 10);
 
         game[Number.parseInt(t.getAttribute('data-index'))] = playersTurn;
-        playersTurn = playersTurn === 'x' ? 'o' : 'x';
 
-        isGameOver(handleGameOver);
+        if (!isGameOver(handleGameOver)) {
+            playersTurn = playersTurn === 'x' ? 'o' : 'x';
+            turn++;
+        }
     }
 });
+
+playAgainButton.addEventListener('click', () => resetGame());
