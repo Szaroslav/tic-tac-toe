@@ -17,7 +17,7 @@
 
 body {
     margin: 0;
-    background-color: #1b171d;
+    background-color: #151116;
     color: white;
     font-family: 'Raleway', sans-serif;
 }
@@ -38,10 +38,12 @@ button {
 
 .x .mark-svg {
     stroke: #2edbf1;
+    stroke-dasharray: 90;
 }
 
 .o .mark-svg {
     stroke: #e72242;
+    stroke-dasharray: 204;
 }
 
 .tic-tac-toe {
@@ -93,16 +95,16 @@ button {
         position: relative;
 
         .tic-tac-toe__cell {
-            background-color: #171319;
+            background-color: #1e1e25;
             border-radius: 4px;
             transition: background-color 0.2s ease;
         }
 
-        &:not(.game-over) .tic-tac-toe__cell:hover {
+        &:not(.game-over) .tic-tac-toe__cell {
             cursor: pointer;
 
             &:hover {
-                background-color: #241f27;
+                background-color: #292933;
             }
         }
     }
@@ -112,19 +114,17 @@ button {
         width: 60%;
         height: 60%;
         margin: 20%;
-        transform: scale(1);
-        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        &.o {
+            transform: rotate(-90deg);
+        }
 
         &.hidden {
             display: none;
         }
 
-        &.animated {
-            transform: scale(0);
-        }
-
         &.no-win .mark-svg {
-            stroke: #252127;
+            stroke: #3f3f46;
         }
     }
 
@@ -173,11 +173,12 @@ button {
         .tic-tac-toe__mark {
             width: 128px;
             height: auto;
-            margin: 3rem 0;
+            margin: 0;
         }
 
         .game-over__heading {
             margin: 0;
+            margin-bottom: 3rem;
             font-size: 2.5rem;
             transition-delay: 0.3s;
 
@@ -188,6 +189,7 @@ button {
 
         .game-over__button {
             padding: 16px 48px;
+            margin-top: 3rem;
             font: 700 1rem 'Raleway', sans-serif;
             background-color: #2edbf1;
             color: white;

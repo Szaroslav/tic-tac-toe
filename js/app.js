@@ -61,10 +61,17 @@ const handleGameOver = (a = -1, b = -1, c = -1) => {
         .filter((cell, i) => i !== a && i !== b && i !== c)
         .forEach(cell => cell.querySelectorAll('.tic-tac-toe__mark').forEach(mark => mark.classList.add('no-win')));
 
-    gameOverContainer.querySelector('.game-over__player').textContent = playersTurn.toUpperCase();
-    gameOverContainer.querySelector(`.${playersTurn}`).classList.remove('hidden');
+    gameOverContainer.querySelectorAll('.tic-tac-toe__mark').forEach(mark => mark.classList.add('hidden'));
+    if (a >= 0) {
+        gameOverContainer.querySelector('.game-over__heading').innerHTML = `
+            Player <span class="game-over__player">${playersTurn.toUpperCase()}</span> has won
+        `;
+        gameOverContainer.querySelector(`.${playersTurn}`).classList.remove('hidden');
+    } else {
+        gameOverContainer.querySelector('.game-over__heading').innerHTML = 'Draw';
+    }
 
-    setTimeout(() => gameOverContainer.classList.add('active'), 2500);
+    setTimeout(() => gameOverContainer.classList.add('active'), 2000);
 };
 
 board.addEventListener('click', e => {
@@ -77,8 +84,24 @@ board.addEventListener('click', e => {
 
         const m = t.querySelector(`.${playersTurn}`);
         m.classList.remove('hidden');
-        m.classList.add('animated');
-        setTimeout(() => m.classList.remove('animated'), 10);
+        if (playersTurn === 'x') {
+            m.querySelectorAll('.mark-svg').forEach((line, i) => {
+                anime({
+                    targets: line,
+                    strokeDashoffset: [90, 0],
+                    duration: 200,
+                    delay: 200 * i,
+                    easing: 'easeOutQuint',
+                });
+            });
+        } else {
+            anime({
+                targets: m.querySelector('.mark-svg'),
+                strokeDashoffset: [204, 0],
+                duration: 400,
+                easing: 'easeOutQuint',
+            });
+        }
 
         game[Number.parseInt(t.getAttribute('data-index'))] = playersTurn;
 
