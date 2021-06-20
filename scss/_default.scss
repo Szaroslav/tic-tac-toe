@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0.5rem;
+    background-color: $dark-color-1;
+    color: white;
+    font-family: $primary-font;
+}
+
+input[type='submit'],
+input[type='button'],
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}

@@ -126,7 +126,7 @@ board.addEventListener('click', e => {
         } else {
             anime({
                 targets: m.querySelector('.mark-svg'),
-                strokeDashoffset: [204, 0],
+                strokeDashoffset: [205, 0],
                 duration: 400,
                 easing: 'easeOutQuint',
             });
